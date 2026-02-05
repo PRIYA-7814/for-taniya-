@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? ❤️</title>
+    <style>
+        body {
+            background-color: #ffc0cb; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            z-index: 10;
+        }
+        h1 { color: #d63384; margin-bottom: 30px; }
+        .btn-container { position: relative; height: 60px; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; margin-right: 10px; }
+        #noBtn { background-color: #f8f9fa; color: #333; position: absolute; left: 55%; }
+
+        .heart {
+            position: absolute;
+            top: -10%;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="valentineMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/romantic-music-01.wav" type="audio/wav">
+        <!-- This is a free, royalty-free romantic audio clip. If it doesn't work or you want something else, replace the src with your own link (e.g., from Bensound or YouTube Audio Library). -->
+    </audio>
+
+    <div class="card">
+        <h1 id="text">Will you be my Valentine? ❤️</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="accept()">Yes</button>
+            <button id="noBtn" onmouseover="dodge()">No</button>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('valentineMusic');
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        function dodge() {
+            // Start music on first interaction (if not started)
+            music.play();
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.position = 'fixed';
+        }
+
+        function accept() {
+            music.play(); // Ensure music plays when they say Yes
+            document.getElementById('text').innerHTML = "i know that u love me and i love u more thanks for being with me";
+            document.querySelector('.btn-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
